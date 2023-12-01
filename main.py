@@ -16,7 +16,7 @@ from train import Trainer
 
 def main():
 
-    mode = "train"
+    mode = "test"
 
     data_dict = {}
 
