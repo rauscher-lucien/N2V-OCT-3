@@ -170,6 +170,9 @@ class Trainer:
                 loss = l1_loss(output_net * (1-mask), label * (1-mask))
                 loss.backward()
                 optim.step()
+
+                print('TRAIN: EPOCH %d: BATCH %04d: LOSS: %.4f: '
+                      % (epoch, batch, loss))
                 
             if (epoch % self.epoch_save_freq) == 0:
                 self.save(self.dir_checkpoints, Network, epoch)
@@ -182,8 +185,6 @@ class Trainer:
         transform_test = transforms.Compose([
             ToNumpyArray(),
             NormalizeArray(),
-            RandomFlip(),
-            RandomCrop(),
             GenerateN2VMask(),
             ToTensor()
         ])
@@ -216,7 +217,7 @@ class Trainer:
 
             for batch, data in enumerate(loader_test, 1):
 
-                input_net, label, clean_data = data['input'].to(self.device), data['label'].to(self.device), data['clean'].to(self.device)
+                input_net, label, mask = data['input'].to(self.device), data['label'].to(self.device), data['mask'].to(self.device)
                 output_net = Network(input_net)
 
                 loss = l1_loss(output_net, label)
@@ -235,8 +236,7 @@ class Trainer:
                     plt.imsave(os.path.join(self.dir_results, fileset['input']), input_net[j, 0, :, :].squeeze(), cmap='gray')
                     plt.imsave(os.path.join(self.dir_results, fileset['output']), output_net[j, 0, :, :].squeeze(), cmap='gray')
                     plt.imsave(os.path.join(self.dir_results, fileset['label']), label[j, 0, :, :].squeeze(), cmap='gray')
-                    self.save_image(clean_data[j, 0, :, :], os.path.join(self.dir_results, fileset['clean']))
 
-                print('TEST: %d: LOSS: %.6f' % (batch, loss.item()))
+                logging.info('TEST: %d: LOSS: %.6f' % (batch, loss.item()))
 
 

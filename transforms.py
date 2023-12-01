@@ -42,7 +42,7 @@ class RandomFlip:
 
 
 class RandomCrop:
-    def __init__(self, patch_size=50):
+    def __init__(self, patch_size=60):
 
         if isinstance(patch_size, int):
             self.patch_size = (patch_size, patch_size)  # Convert integer to (height, width)
