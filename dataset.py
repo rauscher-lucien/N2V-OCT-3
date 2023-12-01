@@ -12,9 +12,10 @@ class Dataset3D(torch.utils.data.Dataset):
 
     def __init__(self, data_dir, transform=None):
         self.data_dir = data_dir
-        logging.info(self.data_dir)
+        print(self.data_dir)
+        print(data_dir)
         self.transform = transform
-        self.file_list = sorted(glob.glob(os.path.join(data_dir, '*.TIFF')))
+        self.file_list = sorted(glob.glob(os.path.join(self.data_dir, '*.TIFF')))
         print(len(self.file_list))
 
         self.height, self.width, self.depth = get_tiff_image_size(self.data_dir)
