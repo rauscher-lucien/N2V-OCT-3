@@ -123,7 +123,7 @@ class Trainer:
 
 
         # generate Dataset
-
+        logging.info(self.dir_train)
         dataset_train = Dataset3D(self.dir_train, transform=transform_train)
 
         # make loaders
