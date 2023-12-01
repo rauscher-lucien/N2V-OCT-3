@@ -24,6 +24,8 @@ def main():
     data_dir = os.path.join(my_folder, 'data', 'OCT-data-1')
     
     data_dict['dir_train'] = os.path.join(data_dir, 'train')
+    print(data_dict['dir_train'])
+    logging.info(data_dict['dir_train'])
     data_dict['dir_test'] =  os.path.join(data_dir, 'test')
     
     data_dict['dir_results'] = os.path.join(project_dir, 'results')
