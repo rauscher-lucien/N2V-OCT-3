@@ -6,11 +6,13 @@ from torchvision import transforms
 import numpy as np
 from utils import get_tiff_image_size
 import matplotlib.pyplot as plt
+import logging
 
 class Dataset3D(torch.utils.data.Dataset):
 
     def __init__(self, data_dir, transform=None):
         self.data_dir = data_dir
+        logging.info(self.data_dir)
         self.transform = transform
         self.file_list = sorted(glob.glob(os.path.join(data_dir, '*.tiff')))
 
